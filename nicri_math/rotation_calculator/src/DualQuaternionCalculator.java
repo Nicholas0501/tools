@@ -81,7 +81,7 @@ public class DualQuaternionCalculator {
         String msg = null;
         while(true)
         {
-            System.out.print("\033[H\033[2J");
+            //System.out.print("\033[H\033[2J"); Previously used to clear screen
             System.out.println("-Vector Calculator-\n");
             System.out.println("-1 to quit\n");
             if (current != null) System.out.println("\n\t Current: " + current + "\n");
@@ -90,15 +90,15 @@ public class DualQuaternionCalculator {
             System.out.println("[1] Add");
             System.out.println("[2] Subtract");
             System.out.println("[3] Scale");
-            System.out.println("[4] Dot");
-            System.out.println("[5] Cross");
-            System.out.println("[6] Hadamard");
-            System.out.println("[7] Sine");
-            System.out.println("[8] Cosine");
-            System.out.println("[9] ToQuaternion");
-            System.out.println("[10] Normalize");
-            System.out.println("[11] Magnitude");
-            System.out.println("[12] Average Velocity Across Points");
+            System.out.println("[4] Divide");
+            System.out.println("[5] Dot");
+            System.out.println("[6] Cross");
+            System.out.println("[7] Hadamard");
+            System.out.println("[8] Sine");
+            System.out.println("[9] Cosine");
+            System.out.println("[10] ToQuaternion");
+            System.out.println("[11] Normalize");
+            System.out.println("[12] Magnitude");
             System.out.println("[13] Clear");
             System.out.println();
             
@@ -124,95 +124,63 @@ public class DualQuaternionCalculator {
                 double scalar = input.nextDouble();
                 current = Vector3.scale(current, scalar);
             }
-            else if (num == 4) 
+            else if (num == 4)
+            {
+                if (current == null) current = promptVector3();
+                System.out.println("Please enter a double value to divide by:");
+                double scalar = input.nextDouble();
+                current = Vector3.divide(current, scalar);
+            }
+            else if (num == 5) 
             {
                 if (current == null) current = promptVector3();
                 Vector3 v = promptVector3();
                 msg = "" + Vector3.dot(current, v);
             }
-            else if (num == 5)
+            else if (num == 6)
             {
                 if (current == null) current = promptVector3();
                 Vector3 v = promptVector3();
                 current = Vector3.cross(current, v);
             }
-            else if (num == 6) 
+            else if (num == 7) 
             {
                 if (current == null) current = promptVector3();
                 Vector3 v = promptVector3();
                 current = Vector3.hadamard(current, v);
             }
-            else if (num == 7) 
+            else if (num == 8) 
             {
                 if (current == null) current = promptVector3();
                 Vector3 v = promptVector3();
                 msg = "" + Vector3.sin(current, v);
             }
-            else if (num == 8)
+            else if (num == 9)
             {
                 if (current == null) current = promptVector3();
                 Vector3 v = promptVector3();
                 msg = "" + Vector3.cos(current, v);
             }
-            else if (num == 9)
+            else if (num == 10)
             {
                 if (current == null) current = promptVector3();
                 msg = "" + current.toQuat();
             }
-            else if (num == 10) 
+            else if (num == 11) 
             {
                 if (current == null) current = promptVector3();
                 current.normalize();
             }
-            else if (num == 11) 
+            else if (num == 12) 
             {
                 if (current == null) current = promptVector3();
                 msg = "" + current.Mag();
             }
-            else if (num == 12)
+            else if (num == 13) 
             {
-                System.out.println("Please enter the desired format:\n\n\t[1][<Direction1> : Distance 1 : Speed 1, ...]\n\n");
-                int num2 = input.nextInt();
-                ArrayList<Vector3> vectors = new ArrayList<>();
-                ArrayList<Double> distance = new ArrayList<>();
-                ArrayList<Double> speed = new ArrayList<>();
-
-                ArrayList<Vector3> displacement = new ArrayList<>();
-
-                if (num2 == 1)
-                {
-                    int num3 = 1;
-                    while(num3 == 1)
-                    {
-                        System.out.println("Please enter a direction: ");
-                        vectors.add(promptVector3());
-                        System.out.println("Please enter a distance: ");
-                        distance.add(input.nextDouble());
-                        System.out.println("Please enter a speed: ");
-                        speed.add(input.nextDouble());
-
-                        System.out.println("Add another point? Enter 1 to continue");
-                        num3 = input.nextInt();
-                    }
-                    
-                    for(int i = 0;i < vectors.size() ; i++)
-                    {
-                        //displacement = unit vector * distance
-                        //time = distance / speed
-                        vectors.get(i).normalize();
-                        displacement.add(Vector3.scale(vectors.get(i), distance.get(i)));
-                    }
-
-                    
-
-                }
-                else if (num2 == 2)
-                {
-
-                }
-
+                System.out.print("\033[H\033[2J");
+                current = null;
             }
-            else if (num == 13) current = null;
             else msg = "Please Enter A Valid Number";
         }
     }

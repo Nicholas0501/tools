@@ -38,6 +38,11 @@ public class Vector3 {
     {
         return new Vector3(v1.x * scalar, v1.y * scalar, v1.z * scalar);
     }
+
+    public static Vector3 divide(Vector3 v1, double scalar)
+    {
+        return Vector3.scale(v1, 1 / scalar);
+    }
     
     public static Vector3 add(Vector3 v1, Vector3 v2)
     {
